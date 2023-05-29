@@ -4,21 +4,21 @@ from lightgbm import LGBMClassifier
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 
-# 加载数据
+# Load data
 data = pd.read_csv('TrainingDataMulti.csv')
 X = data.iloc[:, :128]
 y = data.iloc[:, 128]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 定义参数
+# Define parameters
 n_estimators_range = list(range(150, 251))
 learning_rates = [0.2, 0.3, 0.4, 0.5]
 max_depth = 7
 
-# 存储结果
+# Store results
 results = {}
 
-# 训练模型并记录结果
+# Train the model and record the results
 for lr in learning_rates:
     accuracies = []
     for n_est in n_estimators_range:
@@ -29,7 +29,7 @@ for lr in learning_rates:
         accuracies.append(acc)
     results[lr] = accuracies
 
-# 绘制图像
+# Plot the image
 for lr, accuracies in results.items():
     plt.figure(figsize=(10, 6))
     plt.plot(n_estimators_range, accuracies, label=f'Learning Rate={lr}')
